@@ -2,8 +2,7 @@
 #include <ctype.h>
 
 /**
- * main - Determine if a random number is positive, negative or
- zero
+ * main - Entry point
  *
  * Return: Always 0 (success)
  */
