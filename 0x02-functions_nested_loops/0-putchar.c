@@ -2,7 +2,7 @@
 
 
 /**
- * main -Entry point of my code,
+ * main -Entry point of my code.
  *
  * Return: Always
  */
@@ -14,7 +14,7 @@ _putchar('p');
 _putchar('u');
 _putchar('t');
 _putchar('c');
-_putchar('h'); 
+_putchar('h');
 _putchar('a');
 _putchar('r');
 _putchar('\n');
