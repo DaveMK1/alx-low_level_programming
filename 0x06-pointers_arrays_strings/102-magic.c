@@ -1,13 +1,5 @@
 #include <stdio.h>
 
-/**
- * main - Entry point
- *
- * Description: the program
- *
- * Return: 0
- */
-
 int main(void)
 {
 int n;
