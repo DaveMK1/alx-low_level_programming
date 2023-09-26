@@ -1,29 +1,63 @@
 #include "lists.h"
+#include <stdlib.h>
+#include <stdio.h>
 
 /**
- * print_listint_safe - Prints a linked list with loop detection
- * @head: Pointer to the first node of the linked list
- * Return: The number of nodes in the list
+ * find_loop_start - Finds the start of a loop in a linked list
+ *
+ * @head: The head of the linked list
+ *
+ * Return: The node where the loop starts, or NULL if there's no loop
  */
 
-size_t print_listint_safe(const listint_t *head)
+listint_t *find_loop_start(listint_t *head)
 {
-	const listint_t *slow_ptr = head;
-	const listint_t *fast_ptr = head;
-	size_t counter = 0;
+	listint_t *slow = head, *fast = head;
 
-	while (fast_ptr != NULL && fast_ptr->next != NULL)
+	while (fast != NULL && fast->next != NULL)
 	{
-		printf("[%p] %d\n", (void *)slow_ptr, slow_ptr->n);
-		counter++;
-		slow_ptr = slow_ptr->next;
-		fast_ptr = fast_ptr->next->next;
+		slow = slow->next;
+		fast = fast->next->next;
 
-		if (slow_ptr == fast_ptr)
+		if (slow == fast)
 		{
-			printf("-> [%p] %d\n", (void *)slow_ptr, slow_ptr->n);
-			return (counter);
+			slow = head;
+			while (slow != fast)
+			{
+				slow = slow->next;
+				fast = fast->next;
+			}
+			return (slow);
 		}
 	}
-	return (counter);
+	return (NULL);
+}
+
+/**
+ * print_listint_safe - Prints a linked list safely even if it has a loop
+ *
+ * @head: The head of the linked list
+ *
+ * Return: The number of nodes printed
+ */
+size_t print_listint_safe(const listint_t *head)
+{
+	size_t nodeCount = 0;
+	listint_t *loopStart = find_loop_start((listint_t *)head);
+	int isInLoop = 1;
+
+	while (head != NULL && (head != loopStart || isInLoop))
+	{
+		printf("[%p] %d\n", (void *)head, head->n);
+
+		if (head == loopStart)
+			isInLoop = 0;
+
+		head = head->next;
+		nodeCount++;
+	}
+	if (loopStart != NULL)
+		printf("-> [%p] %d\n", (void *)head, head->n);
+
+	return (nodeCount);
 }
