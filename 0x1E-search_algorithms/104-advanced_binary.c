@@ -10,7 +10,7 @@
  */
 int recursive_search(int *array, int value, int start, int end)
 {
-	int mid = 0, temp = start;
+	int middle = 0, temp = start;
 
 	if (start > end)
 		return (-1);
@@ -25,16 +25,15 @@ int recursive_search(int *array, int value, int start, int end)
 	}
 
 	printf("\n");
-	mid = (end + start) / 2;
+	middle = (end + start) / 2;
 
-	if (array[mid] == value && array[mid - 1] != value)
-		return (mid);
-	/* else if (array[mid - 1] == value) */
-	/*	end = mid; */
-	else if (array[mid] < value)
-		start = mid + 1;
+	if (array[middle] == value && array[middle - 1] != value)
+		return (middle);
+
+	else if (array[middle] < value)
+		start = middle + 1;
 	else
-		end = mid;
+		end = middle;
 
 	return (recursive_search(array, value, start, end));
 }
